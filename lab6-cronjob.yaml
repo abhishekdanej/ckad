@@ -1,7 +1,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata: 
-  name: hello-cronjob
+  name: sleep-cronjob
 spec:
   schedule: "*/2 * * * *"
   jobTemplate:
@@ -9,10 +9,8 @@ spec:
       template:
         spec:
           containers:
-          - name: hello
-            image: busybox
-            args:
-            - /bin/sh
-            - -c
-            - date; echo hello from the K8s cluster
+          - name: sleep
+            image: alpine
+            command: ["/bin/sleep"]
+            args: ["300"]
           restartPolicy: OnFailure
